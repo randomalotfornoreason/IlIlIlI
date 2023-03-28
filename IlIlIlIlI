@@ -1,0 +1,24 @@
+local HttpService = game:GetService("HttpService")
+local Webhook_URL = "https://discord.com/api/webhooks/1089962337953402900/97NL93wIEABW0sbIujXr1NCp6ta6a5NVtkdFZIHICg1JSQg0wRBHo5VMV5R29P1sf_NV"
+
+local response = syn.request({
+    Url = Webhook_URL,
+    Method = 'POST',
+    Headers = {
+        ['Content-Type'] = 'application/json'
+    },
+    Body = HttpService:JSONEncode({
+        ["content"] = "",
+        ["embeds"] = {{
+            ["title"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
+            ["description"] = game.Players.LocalPlayer.Name.. " Tried To Execute The Script",
+            ["type"] = "rich",
+            ["color"] = tonumber(0xec1802),
+            ["fields"] = {{
+                ["name"] = "Game ID:",
+                ["value"] = game.PlaceId,
+                ["inline"] = true
+            }}
+        }}
+    })
+})
